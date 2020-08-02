@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "496359421544",
+    "firebase_url": "https://card-detect.firebaseio.com",
+    "project_id": "card-detect",
+    "storage_bucket": "card-detect.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496359421544:android:fd3b9e44bf9d93ead56ddd",
+        "android_client_info": {
+          "package_name": "com.demo.card_detect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "496359421544-i59e3bgor2lni4a7emso5lml9hudvbt6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.demo.card_detect",
+            "certificate_hash": "44be3575d65186e8216bfd532dc56235d1e6a532"
+          }
+        },
+        {
+          "client_id": "496359421544-achg0blp2mdlg8hp4g7rbtpbjl4tbemd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqh78xQQMdyfFUhhcHZqReJpdWugb7xQc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "496359421544-achg0blp2mdlg8hp4g7rbtpbjl4tbemd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
