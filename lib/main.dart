@@ -28,21 +28,25 @@ class _MyAppState extends State<MyApp> {
       if (key == 1)
         pickedFile = await picker.getImage(source: ImageSource.gallery);
       if (key == 2)
-         pickedFile = await picker.getImage(source: ImageSource.camera);
-//      {
-//        try {
-//          detectFile = await EdgeDetection.detectEdge;
-//        } on PlatformException {
-//          print("Failed to get cropped image path.");
-//        }
-//      }
+        pickedFile = await picker.getImage(source: ImageSource.camera);
+      if (key == 3) {
+        try {
+          detectFile = await EdgeDetection.detectEdge;
+        } on PlatformException {
+          print("Failed to get cropped image path.");
+        }
+      }
       setState(() {
-//        _image = File(detectFile);
-        _image = File(pickedFile.path);
+        if (detectFile != null)
+          _image = File(detectFile);
+        else
+          _image = File(pickedFile.path);
       });
-
-      final text = await TesseractOcr.extractText(pickedFile.path,
-          language: "vie");
+      var text;
+      if (detectFile != null)
+        text = await TesseractOcr.extractText(detectFile,language: "financial");
+      else
+        text = await TesseractOcr.extractText(pickedFile.path, language: "financial");
       if (mounted) {
         setState(() {
           string = text;
@@ -79,6 +83,7 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             children: <Widget>[
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(bottom: 16.0),
@@ -95,6 +100,16 @@ class _MyAppState extends State<MyApp> {
                     child: RaisedButton(
                       child: Text("Chụp hình"),
                       onPressed: () => getImage(2),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 16.0),
+                    child: RaisedButton(
+                      child: Text("Scan hình"),
+                      onPressed: () => getImage(3),
                     ),
                   ),
                 ],
