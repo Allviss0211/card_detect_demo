@@ -1,12 +1,10 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:edge_detection/edge_detection.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tesseract_ocr/tesseract_ocr.dart';
 
 void main() => runApp(MaterialApp(home: MyApp()));
 
@@ -25,6 +23,7 @@ class _MyAppState extends State<MyApp> {
     Future getImage(int key) async {
       var detectFile;
       var pickedFile;
+      var textDetect = FirebaseVision.instance.textRecognizer();
       if (key == 1)
         pickedFile = await picker.getImage(source: ImageSource.gallery);
       if (key == 2)
@@ -37,19 +36,21 @@ class _MyAppState extends State<MyApp> {
         }
       }
       setState(() {
-        if (detectFile != null)
+        if (detectFile != null) {
           _image = File(detectFile);
-        else
+        } else {
           _image = File(pickedFile.path);
+        }
       });
-      var text;
-      if (detectFile != null)
-        text = await TesseractOcr.extractText(detectFile,language: "financial");
-      else
-        text = await TesseractOcr.extractText(pickedFile.path, language: "financial");
+      var image = FirebaseVisionImage.fromFile(_image);
+      final text =  await textDetect.processImage(image);
+//      if (detectFile != null)
+//        text = await TesseractOcr.extractText(detectFile, language: "eng");
+//      else
+//        text = await TesseractOcr.extractText(pickedFile.path, language: "eng");
       if (mounted) {
         setState(() {
-          string = text;
+          string = text.text;
         });
       }
     }
